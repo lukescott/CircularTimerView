@@ -67,7 +67,7 @@ and add it as subview
     - Changed init function to have fewer options
     - Added initWithFrame for IB (radius = width / 2, internalRadius = 0)
     - Added / moved properties to header file
-    - Simplified data functions
+    - Simplified date functions
     - Renamed to CircularTimerView
     
 ## Licence
