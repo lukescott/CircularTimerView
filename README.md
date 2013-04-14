@@ -17,22 +17,6 @@ In your ViewController import the header file `CircularTimerView.h`, and create 
 Then, to create the object use a code like this:
 
 ```
-self.circularTimerView = 
-[[CircularTimer alloc] initWithPosition:CGPointMake(0.0f, 0.0f)
-                                 radius:radius
-                         internalRadius:internalRadius
-                      circleStrokeColor:circleStrokeColor
-                activeCircleStrokeColor:activeCircleStrokeColor
-                            initialDate:initialDate
-                              finalDate:finalDate
-                          startCallback:^{
-                              //do something
-                          }
-                            endCallback:^{
-                                //do something
-                            }];
-                            
-                            
 self.circularTimerView =
 [[CircularTimerView alloc] initWithPosition:CGPointMake(10.f, 10.f)
                                      radius:100
