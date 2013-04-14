@@ -2,33 +2,33 @@
 //  DetailViewController.m
 //  CircularTimerDemo
 //
-//  Created by Bernat Bombi Fernandez on 21/01/13.
-//  Copyright (c) 2013 Crowd Studio. All rights reserved.
+//  Copyright (c) 2013 Crowd Studio.
+//  Copyright (c) 2013 Luke Scott.
+//  All rights reserved.
+//
+//  Distributed under MIT license, see LICENSE file
 //
 
 #import "DetailViewController.h"
-#import "CircularTimer.h"
+#import "CircularTimerView.h"
 
 @interface DetailViewController ()
 
-@property (nonatomic, strong) CircularTimer *circularTimer;
+@property (nonatomic, strong) CircularTimerView *circularTimer;
 
 @end
 
 @implementation DetailViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self createCircle];
+}
+
+- (void)dealloc
+{
+
 }
 
 - (void)viewDidLoad
@@ -38,20 +38,29 @@
 
 - (void)createCircle
 {
-    self.circularTimer = [[CircularTimer alloc] initWithPosition:CGPointMake(10.0f, 10.0f)
+    self.circularTimer = [[CircularTimerView alloc] initWithPosition:CGPointMake(10.0f, 10.0f)
                                                           radius:self.radius
-                                                  internalRadius:self.internalRadius
-                                               circleStrokeColor:self.circleStrokeColor
-                                         activeCircleStrokeColor:self.activeCircleStrokeColor
-                                                     initialDate:self.initialDate
-                                                       finalDate:self.finalDate
-                                                   startCallback:^{
-                                                       self.statusLabel.text = @"Running!";
-                                                   }
-                                                     endCallback:^{
-                                                         self.statusLabel.text = @"Not running anymore!";
-                                                     }];
+                                                  internalRadius:self.internalRadius];
     
+    self.circularTimer.backgroundColor = self.backgroundColor;
+    self.circularTimer.backgroundFadeColor = self.backgroundFadeColor;
+    self.circularTimer.foregroundColor = self.foregroundColor;
+    self.circularTimer.foregroundFadeColor = self.foregroundFadeColor;
+    self.circularTimer.direction = self.direction;
+    self.circularTimer.font = [UIFont systemFontOfSize:22];
+    
+    self.circularTimer.frameBlock = ^(CircularTimerView *circularTimerView){
+        circularTimerView.text = [NSString stringWithFormat:@"%f", [circularTimerView intervalLength]];
+    };
+    [self.circularTimer setupCountdown:self.countdownSeconds];
+    
+    __weak typeof(self) weakSelf = self;
+    self.circularTimer.startBlock = ^(CircularTimerView *circularTimerView){
+        weakSelf.statusLabel.text = @"Running!";
+    };
+    self.circularTimer.endBlock = ^(CircularTimerView *circularTimerView){
+        weakSelf.statusLabel.text = @"Not running anymore!";
+    };
     self.statusLabel.text = ([self.circularTimer willRun]) ? @"Circle will run" : @"Circle won't run";
     
     [self.view addSubview:self.circularTimer];

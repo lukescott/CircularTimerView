@@ -2,22 +2,27 @@
 //  MainViewController.h
 //  CircularTimerDemo
 //
-//  Created by Bernat Bombi Fernandez on 20/01/13.
-//  Copyright (c) 2013 Crowd Studio. All rights reserved.
+//  Copyright (c) 2013 Crowd Studio.
+//  Copyright (c) 2013 Luke Scott.
+//  All rights reserved.
+//
+//  Distributed under MIT license, see LICENSE file
 //
 
 #import <UIKit/UIKit.h>
 
 @interface MainViewController : UIViewController
 
-@property (nonatomic, weak) IBOutlet UISegmentedControl *circleStrokeColorSegmentedControl;
-@property (nonatomic, weak) IBOutlet UISegmentedControl *activeCircleStrokeColorSegmentedControl;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *backgroundColorSegmentedControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *backgroundFadeColorSegmentedControl;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *foregroundColorSegmentedControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *foregroundFadeColorSegmentedControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *directionSegmentedControl;
 @property (nonatomic, weak) IBOutlet UISlider *radiusSlider;
 @property (nonatomic, weak) IBOutlet UISlider *internalRadiusSlider;
 @property (nonatomic, weak) IBOutlet UIButton *initialDateButton;
-@property (nonatomic, weak) IBOutlet UIButton *finalDateButton;
 @property (nonatomic, weak) IBOutlet UILabel *radiusLabel;
-@property (nonatomic, weak) IBOutlet UILabel *interalRadiusLabel;
+@property (nonatomic, weak) IBOutlet UILabel *internalRadiusLabel;
 
 - (IBAction)showPicker:(id)sender;
 - (IBAction)slideRadius:(id)sender;

@@ -18,8 +18,9 @@
 		6506FD4916AC8F5300A3CE9D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6506FD4816AC8F5300A3CE9D /* Default-568h@2x.png */; };
 		6506FD4C16AC8F5300A3CE9D /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6506FD4A16AC8F5300A3CE9D /* MainStoryboard.storyboard */; };
 		6506FD5716AC8F6D00A3CE9D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6506FD5616AC8F6D00A3CE9D /* MainViewController.m */; };
-		6506FD5D16AC8FEB00A3CE9D /* CircularTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6506FD5C16AC8FEB00A3CE9D /* CircularTimer.m */; };
 		6584374116AD89C700BBD8D7 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6584374016AD89C700BBD8D7 /* DetailViewController.m */; };
+		8E132746171A678100E8EDC3 /* CircularTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E132745171A676200E8EDC3 /* CircularTimerView.m */; };
+		8EE1D4B117096A490011345D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE1D4B017096A490011345D /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,10 +40,11 @@
 		6506FD4B16AC8F5300A3CE9D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		6506FD5516AC8F6D00A3CE9D /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		6506FD5616AC8F6D00A3CE9D /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		6506FD5B16AC8FEB00A3CE9D /* CircularTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CircularTimer.h; path = Vendor/CircularTimer/CircularTimer.h; sourceTree = "<group>"; };
-		6506FD5C16AC8FEB00A3CE9D /* CircularTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CircularTimer.m; path = Vendor/CircularTimer/CircularTimer.m; sourceTree = "<group>"; };
 		6584373F16AD89C700BBD8D7 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		6584374016AD89C700BBD8D7 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		8E132744171A676200E8EDC3 /* CircularTimerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CircularTimerView.h; path = Vendor/CircularTimerView/CircularTimerView.h; sourceTree = "<group>"; };
+		8E132745171A676200E8EDC3 /* CircularTimerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CircularTimerView.m; path = Vendor/CircularTimerView/CircularTimerView.m; sourceTree = "<group>"; };
+		8EE1D4B017096A490011345D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EE1D4B117096A490011345D /* QuartzCore.framework in Frameworks */,
 				6506FD3316AC8F5300A3CE9D /* UIKit.framework in Frameworks */,
 				6506FD3516AC8F5300A3CE9D /* Foundation.framework in Frameworks */,
 				6506FD3716AC8F5300A3CE9D /* CoreGraphics.framework in Frameworks */,
@@ -82,6 +85,7 @@
 				6506FD3216AC8F5300A3CE9D /* UIKit.framework */,
 				6506FD3416AC8F5300A3CE9D /* Foundation.framework */,
 				6506FD3616AC8F5300A3CE9D /* CoreGraphics.framework */,
+				8EE1D4B017096A490011345D /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -119,18 +123,18 @@
 		6506FD5816AC8FD300A3CE9D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				6506FD5916AC8FD800A3CE9D /* CircularTimer */,
+				6506FD5916AC8FD800A3CE9D /* CircularTimerView */,
 			);
 			name = Vendor;
 			sourceTree = "<group>";
 		};
-		6506FD5916AC8FD800A3CE9D /* CircularTimer */ = {
+		6506FD5916AC8FD800A3CE9D /* CircularTimerView */ = {
 			isa = PBXGroup;
 			children = (
-				6506FD5B16AC8FEB00A3CE9D /* CircularTimer.h */,
-				6506FD5C16AC8FEB00A3CE9D /* CircularTimer.m */,
+				8E132744171A676200E8EDC3 /* CircularTimerView.h */,
+				8E132745171A676200E8EDC3 /* CircularTimerView.m */,
 			);
-			name = CircularTimer;
+			name = CircularTimerView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,8 +206,8 @@
 				6506FD3F16AC8F5300A3CE9D /* main.m in Sources */,
 				6506FD4316AC8F5300A3CE9D /* AppDelegate.m in Sources */,
 				6506FD5716AC8F6D00A3CE9D /* MainViewController.m in Sources */,
-				6506FD5D16AC8FEB00A3CE9D /* CircularTimer.m in Sources */,
 				6584374116AD89C700BBD8D7 /* DetailViewController.m in Sources */,
+				8E132746171A678100E8EDC3 /* CircularTimerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

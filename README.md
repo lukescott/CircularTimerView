@@ -1,23 +1,23 @@
-# CircularTimer
+# CircularTimerView
 
-CircularTimer is a class that creates a custom circular timer, showing the percentage completed between two dates.
+CircularTimerView is a class that creates a custom circular timer, showing the percentage completed between two dates.
 
 ## Installation
 ===
 
-Drop the files `CircularTimer.h` and `CircularTimer.m` into your Xcode project.
+Drop the files `CircularTimerView.h` and `CircularTimerView.m` into your Xcode project.
 
 ## Usage
 ===
 
-In your ViewController import the header file `CircularTimer.h`, and create a CircularTimer property to keep a reference:
+In your ViewController import the header file `CircularTimerView.h`, and create a CircularTimerView property to keep a reference:
 
-`@property (nonatomic, strong) CircularTimer *circularTimer;`
+`@property (nonatomic, strong) CircularTimerView *circularTimerView;`
 
 Then, to create the object use a code like this:
 
 ```
-self.circularTimer = 
+self.circularTimerView = 
 [[CircularTimer alloc] initWithPosition:CGPointMake(0.0f, 0.0f)
                                  radius:radius
                          internalRadius:internalRadius
@@ -31,12 +31,40 @@ self.circularTimer =
                             endCallback:^{
                                 //do something
                             }];
+                            
+                            
+self.circularTimerView =
+[[CircularTimerView alloc] initWithPosition:CGPointMake(10.f, 10.f)
+                                     radius:100
+                             internalRadius:50];
+    
+// Light gray circle
+self.circularTimerView.backgroundColor = [UIColor lightGrayColor];
+self.circularTimerView.backgroundFadeColor = nil;
+
+// Circle Fade from green to red
+self.circularTimerView.foregroundColor = [UIColor greenColor];
+self.circularTimerView.foregroundFadeColor = [UIColor redColor];
+self.circularTimerView.direction = CircularTimerViewDirectionCounterClockwise;
+
+// Text fade from green to red
+self.circularTimerView.font = [UIFont systemFontOfSize:22];
+self.circularTimerView.fontColor = [UIColor greenColor];
+self.circularTimerView.fontFadeColor = [UIColor redColor];
+
+// Display seconds - format text here
+self.circularTimerView.frameBlock = ^(CircularTimerView *circularTimerView){
+    circularTimerView.text = [NSString stringWithFormat:@"%f", [circularTimerView intervalLength]];
+};
+
+// 1 minute timer
+[self.circularTimerView setupCountdown:60];
 ```                              
 
 and add it as subview
 
 ```
-[self.view addSubview:self.circularTimer];
+[self.view addSubview:self.circularTimerView];
 ```
 
 ## Methods
@@ -56,59 +84,26 @@ activeCircleStrokeColor:(UIColor *)activeCircleStrokeColor
            endCallback:(void (^)(void))endBlock;       
 ```
 
-You can see the meaning of `radius`, `internalRadius`, `circleStrokeColor` and `activeCircleStrokeColor` in this image:
-
-![image](https://github.com/crowd-studio/circulartimer/blob/master/Assets/circleinfo.png?raw=true)
-
-```
-- (BOOL)isRunning;
-```
-Indicates if the CircularTimer is currently running.
-
-```
-- (BOOL)willRun;
-```
-Indicates if the CircularTimer will run (in other words, if the current time is smaller than the CircularTimer `finalDate`).
-
-```
-- (void)stop;
-```
-Stops the CircularTimer.
-
-```
-- (NSTimeInterval)intervalLength;
-```
-Returns the interval between the `initialDate` and the `finalDate`.
-
-```
-- (NSTimeInterval)runningElapsedTime;
-```
-Returns the interval of time elapsed since the CircularTimer started running.
-
-## Demo
-
-You can find a demo project in this repository. Meanwhile, you can watch a teaser:
-
-[https://vimeo.com/57868337](https://vimeo.com/57868337)
-
-## About us
+## Authors
 ===
 
-##### CROWD STUDIO
-
-[@crowdstudio_](http://twitter.com/crowdstudio_)
-
-[http://crowd-studio.com/](http://crowd-studio.com/)
-
-[http://facebook.com/thisiscrowd](http://facebook.com/thisiscrowd)
-
+  - Originally written by CROWD STUDIO
+  - Rewritten by Luke Scott
+    - Added options to fade from / to colors
+    - Added option to customize starting angle
+    - Added option to customize direction (clockwise, cc-clockwise, both)
+    - Changed NSTimer to CADisplayLink for smooth animation
+    - Calculated optimum frame interval using circle arc and time
+    - Fixed circular retain between view and timer with willMoveToSuperview
+    - Added customizable text (centered in circle)
+    - Added convenient setupCountdown:seconds function
+    - Changed init function to have fewer options
+    - Added initWithFrame for IB (radius = width / 2, internalRadius = 0)
+    - Added / moved properties to header file
+    - Simplified data functions
+    - Renamed to CircularTimerView
+    
 ## Licence
 ===
   
-Copyright (C) 2013 CROWD STUDIO
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+See LICENSE file

@@ -2,8 +2,11 @@
 //  DetailViewController.h
 //  CircularTimerDemo
 //
-//  Created by Bernat Bombi Fernandez on 21/01/13.
-//  Copyright (c) 2013 Crowd Studio. All rights reserved.
+//  Copyright (c) 2013 Crowd Studio.
+//  Copyright (c) 2013 Luke Scott.
+//  All rights reserved.
+//
+//  Distributed under MIT license, see LICENSE file
 //
 
 #import <UIKit/UIKit.h>
@@ -12,10 +15,12 @@
 
 @property float radius;
 @property float internalRadius;
-@property (nonatomic, strong) UIColor *circleStrokeColor;
-@property (nonatomic, strong) UIColor *activeCircleStrokeColor;
-@property (nonatomic, strong) NSDate *initialDate;
-@property (nonatomic, strong) NSDate *finalDate;
+@property (nonatomic, strong) UIColor *backgroundColor;
+@property (nonatomic, strong) UIColor *backgroundFadeColor;
+@property (nonatomic, strong) UIColor *foregroundColor;
+@property (nonatomic, strong) UIColor *foregroundFadeColor;
+@property (nonatomic, assign) NSInteger direction;
+@property (nonatomic, assign) NSTimeInterval countdownSeconds;
 
 @property (nonatomic, weak) IBOutlet UILabel *statusLabel;
 
