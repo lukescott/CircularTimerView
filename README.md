@@ -3,12 +3,10 @@
 CircularTimerView is a class that creates a custom circular timer, showing the percentage completed between two dates.
 
 ## Installation
-===
 
 Drop the files `CircularTimerView.h` and `CircularTimerView.m` into your Xcode project.
 
 ## Usage
-===
 
 In your ViewController import the header file `CircularTimerView.h`, and create a CircularTimerView property to keep a reference:
 
@@ -52,7 +50,6 @@ and add it as subview
 ```
 
 ## Authors
-===
 
   - Originally written by CROWD STUDIO
   - Rewritten by Luke Scott
@@ -71,6 +68,5 @@ and add it as subview
     - Renamed to CircularTimerView
     
 ## Licence
-===
   
 See [LICENSE](https://github.com/lukescott/circulartimer/blob/master/LICENSE) file
