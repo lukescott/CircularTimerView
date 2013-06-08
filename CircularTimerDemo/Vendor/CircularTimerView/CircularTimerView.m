@@ -24,6 +24,19 @@
 
 #define DEGREES_TO_RADIANS(degrees)((M_PI * degrees)/180)
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.direction = CircularTimerViewDirectionClockwise;
+        self.startDegrees = 270.f;
+        self.radius = self.frame.size.width / 2;
+        self.internalRadius = 0.f;
+        [super setBackgroundColor:[UIColor clearColor]];
+    }
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -54,16 +67,15 @@
     return self;
 }
 
-- (void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    self.radius = frame.size.width / 2;
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.radius = self.frame.size.width / 2;
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
-    if(self.running) {
-        if(newSuperview == nil) {
+    if (self.running) {
+        if (newSuperview == nil) {
             [self stop];
         }
     }
@@ -88,7 +100,7 @@
     CGFloat tRed, tBlue, tGreen, tAlpha;
     CGFloat red, green, blue, alpha;
     
-    if(CGColorGetNumberOfComponents(fromColor.CGColor) == 2) {
+    if (CGColorGetNumberOfComponents(fromColor.CGColor) == 2) {
         [fromColor getWhite:&fRed alpha:&fAlpha];
         fGreen = fRed;
         fBlue = fRed;
@@ -96,7 +108,7 @@
     else {
         [fromColor getRed:&fRed green:&fGreen blue:&fBlue alpha:&fAlpha];
     }
-    if(CGColorGetNumberOfComponents(toColor.CGColor) == 2) {
+    if (CGColorGetNumberOfComponents(toColor.CGColor) == 2) {
         [toColor getWhite:&tRed alpha:&tAlpha];
         tGreen = tRed;
         tBlue = tRed;
@@ -115,6 +127,10 @@
 
 - (void)drawRect:(CGRect)rect
 {
+    if (self.running == NO) {
+        return;
+    }
+    
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     NSTimeInterval finSecs = [self.finalDate timeIntervalSince1970];
     NSTimeInterval initialSecs = [self.initialDate timeIntervalSince1970];
@@ -123,7 +139,7 @@
     float radius = self.internalRadius + strokeWidth / 2;
     float percent = MIN(100.f, (now - initialSecs) / (finSecs - initialSecs) * 100);
     
-    if(self.frameBlock) {
+    if (self.frameBlock) {
         self.frameBlock(self);
     }
     
@@ -133,7 +149,7 @@
                                                                 startAngle:DEGREES_TO_RADIANS(0.0f)
                                                                   endAngle:DEGREES_TO_RADIANS(360.0f)
                                                                  clockwise:YES];
-    if(self.backgroundFadeColor) {
+    if (self.backgroundFadeColor) {
         [[self colorFromColor:self.backgroundColor toColor:self.backgroundFadeColor percent:percent] setStroke];
     }
     else {
@@ -163,9 +179,16 @@
 
     oppDeg = 360.f - startDeg;
     endDeg = (endDeg < oppDeg) ? startDeg + endDeg : endDeg - oppDeg;
+    
     if (endDeg == startDeg) {
-        startDeg = 0.f;
-        endDeg = 360.f;
+        if (self.invert) {
+            startDeg = 0.f;
+            endDeg = 0.f;
+        }
+        else {
+            startDeg = 0.f;
+            endDeg = 360.f;
+        }
     }
  
     // Moving circle
@@ -173,8 +196,8 @@
                                                                     radius:radius
                                                                 startAngle:DEGREES_TO_RADIANS(startDeg)
                                                                   endAngle:DEGREES_TO_RADIANS(endDeg)
-                                                                 clockwise:YES];
-    if(self.foregroundFadeColor) {
+                                                                 clockwise:!self.invert];
+    if (self.foregroundFadeColor) {
         [[self colorFromColor:self.foregroundColor toColor:self.foregroundFadeColor percent:percent] setStroke];
     }
     else {
@@ -184,12 +207,11 @@
     [foregroundCircle stroke];
     
     // Text
-    if(self.text && self.font) {
-        NSString *text = [NSString stringWithFormat:@"%d", (NSInteger)(finSecs - now)];
-        CGSize textSize = [text sizeWithFont:self.font];
+    if (self.text && self.font) {
+        CGSize textSize = [self.text sizeWithFont:self.font];
         CGPoint textCenter = CGPointMake(center.x - textSize.width / 2, center.y - textSize.height / 2);
-        if(self.fontColor) {
-            if(self.fontFadeColor) {
+        if (self.fontColor) {
+            if (self.fontFadeColor) {
                 [[self colorFromColor:self.fontColor toColor:self.fontFadeColor percent:percent] set];
             }
             else {
@@ -199,7 +221,7 @@
         else {
             [[UIColor blackColor] set];
         }
-        [text drawAtPoint:textCenter withFont:self.font];
+        [self.text drawAtPoint:textCenter withFont:self.font];
     }
 }
 
@@ -243,7 +265,7 @@
     if (self.running == NO) {
         self.running = NO;
         if ([self willRun]) {
-            if(self.framesPerSecond < 1) {
+            if (self.framesPerSecond < 1) {
                 frameInterval = [self calculateFrameInterval];
             }
             else {
@@ -251,7 +273,7 @@
             }
             timer = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateCircle)];
             timer.frameInterval = MIN(60, MAX(1, frameInterval));
-            [timer addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+            [timer addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
         }
     }
 }

@@ -36,6 +36,7 @@ typedef enum {
 @property (assign, nonatomic) float internalRadius;
 @property (assign, nonatomic) float startDegrees;
 @property (assign, nonatomic) CircularTimerViewDirection direction;
+@property (assign, nonatomic) BOOL invert;
 @property (assign, nonatomic) BOOL autostart;
 @property (assign, nonatomic) NSInteger framesPerSecond;
 @property (strong, nonatomic) NSDate *initialDate;
