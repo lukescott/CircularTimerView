@@ -208,7 +208,7 @@
     
     // Text
     if (self.text && self.font) {
-        CGSize textSize = [self.text sizeWithFont:self.font];
+        CGSize textSize = [self.text sizeWithAttributes:@{ NSFontAttributeName:self.font }];
         CGPoint textCenter = CGPointMake(center.x - textSize.width / 2, center.y - textSize.height / 2);
         if (self.fontColor) {
             if (self.fontFadeColor) {
@@ -221,7 +221,7 @@
         else {
             [[UIColor blackColor] set];
         }
-        [self.text drawAtPoint:textCenter withFont:self.font];
+        [self.text drawAtPoint:textCenter withAttributes:@{ NSFontAttributeName:self.font, NSForegroundColorAttributeName:self.fontColor }];
     }
 }
 
